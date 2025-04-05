@@ -1,0 +1,10 @@
+unstructured
+tiktoken
+pinecone
+pypdf
+openai
+langchain
+pandas
+numpy
+python-dotenv
+google-generativeai
