@@ -1,32 +1,27 @@
-
-from dotenv import load_dotenv
-load_dotenv()
-
 import streamlit as st
-import os
 import google.generativeai as genai
 
-# Configure the Gemini API
-genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+# ✅ Configure Gemini with Streamlit Cloud Secret
+genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
 
-# Load model
+# ✅ Load Gemini Model
 model = genai.GenerativeModel("gemini-1.5-flash-002")
 chat = model.start_chat(history=[])
 
-# Function to get Gemini response (name not changed)
+# ✅ Get Gemini response (non-streaming for speed + stability)
 def get_gemini_response(question):
-    response = chat.send_message(question, stream=True)
-    return response
+    try:
+        response = chat.send_message(question)
+        return response.text
+    except Exception as e:
+        return f"⚠️ Error: {e}"
 
-# Streamlit Page Configuration
+# ✅ Streamlit Page Setup
 st.set_page_config(page_title="Startup Buddy Demo", page_icon="🚀", layout="centered")
 
-# Custom CSS for better aesthetics
+# ✅ Custom CSS for styling
 st.markdown("""
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
         .stTextInput>div>div>input {
             font-size: 18px;
             padding: 12px;
@@ -59,33 +54,31 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Header and Input
+# ✅ Page Header
 st.markdown("<h1 style='text-align: center;'>🤖 Startup Buddy - Q&A Chatbot</h1>", unsafe_allow_html=True)
 st.markdown("Ask me anything related to your startup ideas, challenges, or funding!")
 
-# Initialize session state for chat history
-if 'chat_history' not in st.session_state:
-    st.session_state['chat_history'] = []
+# ✅ Initialize Chat History
+if "chat_history" not in st.session_state:
+    st.session_state["chat_history"] = []
 
-# Input field
-input = st.text_input("Ask your question below 👇", key="input")
+# ✅ Input Section
+user_input = st.text_input("Ask your question below 👇", key="input")
 submit = st.button("Ask the question")
 
-# Process user input
-if submit and input:
-    response = get_gemini_response(input)
-    st.session_state['chat_history'].append(("you", input))
+# ✅ Response Processing
+if submit and user_input:
+    st.session_state["chat_history"].append(("you", user_input))
+    with st.spinner("Thinking..."):
+        response_text = get_gemini_response(user_input)
+    st.session_state["chat_history"].append(("Bot", response_text))
 
-    st.subheader("💬 Response:")
-    full_response = ""
-    for chunk in response:
-        st.write(chunk.text)
-        full_response += chunk.text
-    st.session_state['chat_history'].append(("Bot", full_response))
-
-# Chat History Display
-if st.session_state['chat_history']:
+# ✅ Chat History Display
+if st.session_state["chat_history"]:
     st.subheader("🕓 Chat History")
-    for role, text in reversed(st.session_state['chat_history']):
+    for role, text in reversed(st.session_state["chat_history"]):
         style = "user" if role == "you" else "bot"
-        st.markdown(f"<div class='chat-bubble {style}'><b>{role.capitalize()}:</b> {text}</div>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div class='chat-bubble {style}'><b>{role.capitalize()}:</b> {text}</div>",
+            unsafe_allow_html=True,
+        )
