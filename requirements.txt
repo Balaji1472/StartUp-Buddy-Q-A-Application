@@ -1,3 +1,16 @@
-streamlit
+unstructured
+tiktoken
+pinecone
+pypdf
+openai
+langchain
+pandas
+numpy
 python-dotenv
 google-generativeai
+streamlit
+pinecone-client
+langchain
+google-generativeai
+fastapi
+uvicorn[standard]
