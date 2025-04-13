@@ -3,14 +3,13 @@ tiktoken
 pinecone
 pypdf
 openai
-langchain
 pandas
 numpy
 python-dotenv
 google-generativeai
 streamlit
 pinecone-client
-langchain
+langchain>=0.1.14
 google-generativeai
 fastapi
 uvicorn[standard]
