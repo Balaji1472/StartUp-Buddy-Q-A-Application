@@ -10,10 +10,10 @@ import time
 
 # Add the backend directory to the Python path if running from frontend
 import sys
-from pathlib import Path
-backend_path = Path(__file__).parent
-if not str(backend_path) in sys.path:
-    sys.path.append(str(backend_path))
+# from pathlib import Path
+# backend_path = Path(__file__).parent
+# if not str(backend_path) in sys.path:
+#     sys.path.append(str(backend_path))
 
 # Function to get API keys from environment or Streamlit secrets
 def get_api_key(key_name):
