@@ -145,7 +145,7 @@ try:
         from pinecone_utils import store_chat, search_similar
     except ImportError:
         # If direct import fails, try relative import (from backend folder)
-        from backend.pinecone_utils import store_chat, search_similar
+        from pinecone_utils import store_chat, search_similar
     
     pinecone_available = True
     st.sidebar.success("✅ Pinecone integration initialized successfully")
