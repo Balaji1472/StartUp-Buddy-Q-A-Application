@@ -4,3 +4,4 @@ streamlit
 google-generativeai
 fastapi
 uvicorn[standard]
+langchain-google-genai
