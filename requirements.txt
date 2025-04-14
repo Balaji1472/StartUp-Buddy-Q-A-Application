@@ -1,8 +1,6 @@
 pinecone
 python-dotenv
-google-generativeai
 streamlit
-langchain>=0.1.14
 google-generativeai
 fastapi
 uvicorn[standard]
