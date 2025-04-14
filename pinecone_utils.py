@@ -2,7 +2,7 @@ import os
 import uuid
 import streamlit as st
 from pinecone import Pinecone
-#from langchain_google_genai import GoogleGenerativeAIEmbeddings
+import GoogleGenerativeAIEmbeddings
 
 # Function to get API keys from environment or Streamlit secrets
 def get_api_key(key_name):
