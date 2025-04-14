@@ -1,10 +1,4 @@
-unstructured
-tiktoken
 pinecone
-pypdf
-openai
-pandas
-numpy
 python-dotenv
 google-generativeai
 streamlit
